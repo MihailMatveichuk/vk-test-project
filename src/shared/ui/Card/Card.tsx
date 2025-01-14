@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 
 import { truncateText } from '@/lib/index';
 
-import { CardType } from '../models';
+import { CardType } from '../../models';
 
 export function CardsItem({ value }: { value: CardType }) {
   return (

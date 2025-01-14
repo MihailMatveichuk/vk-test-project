@@ -1,6 +1,6 @@
 import { useGetAllCardsQuery } from '@/store/cardsApi';
 
-import { CardsItem } from '@/shared/Card';
+import { CardsItem } from '@/shared/ui/Card';
 
 import css from './cardsList.module.css';
 
