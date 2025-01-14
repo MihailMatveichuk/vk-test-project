@@ -1,4 +1,4 @@
-import { Header } from '@/entities/Header';
+import { Header } from '@/entities/ui/Header';
 
 export function Layout({ children }: { children: React.ReactElement }) {
   return (
