@@ -1,0 +1,21 @@
+.cardWrapper {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.cardWrapper img {
+    display: block;
+    object-fit: cover;
+    object-position: center/center;
+    max-width: 100%;
+    width: auto;
+    aspect-ratio: 1 / 1;
+}
+
+.cardWrapper:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+    box-shadow: var(--box-blur-shadow)
+}

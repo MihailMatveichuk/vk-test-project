@@ -1,0 +1,17 @@
+:root {
+  --COLOR_BLACK_OPACITY_20: rgba(0, 0, 0, 0.2);
+  --COLOR_BLACK: #333333;
+  --COLOR_GRAY: #828282;
+  --COLOR_RED: #d61a1aec;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}

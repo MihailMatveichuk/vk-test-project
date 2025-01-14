@@ -1,0 +1,39 @@
+@keyframes loading-spinner {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cardsWrapper {
+    width: 90%;
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fill, 270px);
+    margin: 0 auto;
+    row-gap: 32px;
+    column-gap: 52px;
+    margin-block: 100px;
+}
+
+.loader {
+    pointer-events: none;
+    color: var(--COLOR_GRAY);
+    min-height: 200px;
+    margin-top: 100px;
+}
+
+.loader:after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    border: 3px solid var(--COLOR_BLACK_OPACITY_20);
+    border-top-color: var(--COLOR_BLACK);
+    border-radius: 100%;
+    animation: loading-spinner 1s ease-in-out infinite;
+}
