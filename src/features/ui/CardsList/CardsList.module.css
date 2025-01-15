@@ -8,6 +8,14 @@
     }
 }
 
+.wrapper {
+    margin-block: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
 .cardsWrapper {
     width: 90%;
     display: grid;
@@ -16,7 +24,16 @@
     margin: 0 auto;
     row-gap: 32px;
     column-gap: 52px;
-    margin-block: 100px;
+}
+
+.cardWrapper {
+    position: relative;
+}
+
+
+.orderSelect {
+    align-self: flex-start;
+    margin-left: 5%;
 }
 
 .loader {

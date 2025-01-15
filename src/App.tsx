@@ -1,4 +1,4 @@
-import { CardsList } from './entities/ui/CardsList';
+import { CardsList } from './features/ui/CardsList';
 import { Layout } from './layout/Layout';
 
 function App() {

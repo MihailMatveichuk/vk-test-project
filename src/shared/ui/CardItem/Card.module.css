@@ -1,0 +1,10 @@
+.card .image {
+    height: 250px;
+    object-fit: fill;
+    object-position: center;
+}
+
+.open {
+    position: absolute;
+    z-index: 1;
+}

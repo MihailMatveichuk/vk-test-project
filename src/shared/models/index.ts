@@ -1,8 +1,13 @@
 export type CardType = {
-  id: number;
+  id: string;
   breeds: {
     name: string;
     description: string;
   }[];
   url: string;
+};
+
+export type EditData = {
+  name: string;
+  description: string;
 };
