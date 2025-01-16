@@ -32,7 +32,7 @@ class CardsStore {
         if (page === 1) {
           this.cards = data;
         } else {
-          this.cards.push(...data);
+          this.cards = [...this.cards, ...data];
         }
 
         this.loading = false;
