@@ -7,16 +7,17 @@ class CardsStore {
   cards: CardType[] = [];
   loading = false;
   error: Error | null = null;
+  count: string | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  async fetchCards(sort: string, limit: number): Promise<void> {
+  async fetchCards(limit = 1, page = 1): Promise<void> {
     this.loading = true;
     try {
       const response = await fetch(
-        `${API_URL}size=med&mime_types=jpg&format=json&order=${sort}&page=1&has_breeds=1&limit=${limit}`,
+        `${API_URL}size=med&mime_types=jpg&format=json&order=asc&page=${page}&has_breeds=1&limit=${limit}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -31,6 +32,7 @@ class CardsStore {
         this.cards = data;
         this.loading = false;
         this.error = null;
+        this.count = response.headers.get('Pagination-Count');
       });
     } catch (error: unknown) {
       runInAction(() => {
@@ -38,6 +40,7 @@ class CardsStore {
           this.error = new Error(error.message);
         }
         this.loading = false;
+        this.count = null;
       });
     }
   }

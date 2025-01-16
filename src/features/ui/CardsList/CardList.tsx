@@ -1,28 +1,75 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import cardsStore from '@/store/cardsStore';
 import { CardType } from '@/shared/models';
 import { EditModal } from '@/entities/ui';
-import { CardsItem, SelectOrder } from '@/shared/ui';
+import { CardsItem } from '@/shared/ui';
+import { ITEMS_ON_PAGE } from '@/constants';
 
 import css from './cardsList.module.css';
 
+const FIRST_PAGE_NUMBER = 1;
+
 export const CardsList = observer(() => {
-  const [orderValue, setOrderValue] = useState('desc');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editCardId, setEditCardId] = useState<string>();
+  const [pageValue, setPageValue] = useState(FIRST_PAGE_NUMBER);
+  const [isFetching, setIsFetching] = useState(true);
+  const [cardList, setCardList] = useState<CardType[]>([]);
 
   useEffect(() => {
-    cardsStore.fetchCards(orderValue, 10);
-  }, [orderValue]);
+    if (isFetching) {
+      cardsStore
+        .fetchCards(ITEMS_ON_PAGE, pageValue)
+        .then(() => {
+          setCardList((prev) => [...prev, ...cardsStore.cards]);
+          setPageValue((prevPageValue) => prevPageValue + 1);
+        })
+        .finally(() => setIsFetching(false));
+    }
+  }, [isFetching]);
+
+  const handleScroll = useCallback(() => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (
+      scrollTop + clientHeight >= scrollHeight - 50 &&
+      Number(cardsStore.count) > pageValue
+    ) {
+      setIsFetching(true);
+    }
+  }, [pageValue]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   const handleDelete = (id: string) => {
     cardsStore.deleteCard(id);
+    setCardList((prev) => prev.filter((card) => card.id !== id));
   };
 
   const handleEdit = (id: string, updatedInfo: Partial<CardType>['breeds']) => {
     cardsStore.editCard(id, updatedInfo);
+
+    setCardList((prev) => {
+      const index = prev.findIndex((card) => card.id === id);
+
+      if (index !== -1) {
+        const updatedCard = {
+          ...prev[index],
+          breeds: { ...prev[index].breeds, ...updatedInfo },
+        };
+
+        return [...prev.slice(0, index), updatedCard, ...prev.slice(index + 1)];
+      }
+      return prev;
+    });
   };
 
   const handleClickOpen = (id: string) => {
@@ -34,12 +81,13 @@ export const CardsList = observer(() => {
     setIsModalOpen(false);
   };
 
-  if (cardsStore.loading) return <div className={css.loader} />;
+  if (cardsStore.loading && !cardList.length)
+    return <div className={css.loader} />;
 
   if (cardsStore.error) return <div>Something went wrong</div>;
 
-  const content = cardsStore.cards?.map((item) => (
-    <div className={css.cardWrapper} key={item.id}>
+  const content = cardList.map((item) => (
+    <div className={css.cardWrapper} key={item.id + uuidv4()}>
       <CardsItem
         card={item}
         onDelete={handleDelete}
@@ -51,15 +99,11 @@ export const CardsList = observer(() => {
 
   return (
     <div className={css.wrapper}>
-      <div className={css.orderSelect}>
-        <SelectOrder value={orderValue} setOrder={setOrderValue} />
-      </div>
-
       <div className={css.cardsWrapper}>{content}</div>
 
       <EditModal
         isOpen={isModalOpen}
-        card={cardsStore.cards.find((card) => card.id === editCardId)}
+        card={cardList.find((card) => card.id === editCardId)}
         onClose={handleClose}
         onEdit={handleEdit}
       />
