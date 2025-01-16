@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { CardType } from '@/shared/models';
 
+import { CardType } from '@/shared/models';
 import { API_KEY, API_URL } from '@/constants';
 
 class CardsStore {

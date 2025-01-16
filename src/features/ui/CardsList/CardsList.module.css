@@ -30,12 +30,6 @@
     position: relative;
 }
 
-
-.orderSelect {
-    align-self: flex-start;
-    margin-left: 5%;
-}
-
 .loader {
     pointer-events: none;
     color: var(--COLOR_GRAY);
