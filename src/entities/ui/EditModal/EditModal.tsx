@@ -51,6 +51,7 @@ export function EditModal({ isOpen, onClose, onEdit, card }: Props) {
           </DialogContentText>
           <TextField
             autoFocus
+            required
             margin="dense"
             id="name"
             name="name"
@@ -62,6 +63,7 @@ export function EditModal({ isOpen, onClose, onEdit, card }: Props) {
           />
           <TextField
             autoFocus
+            required
             margin="dense"
             id="description"
             name="description"

@@ -29,7 +29,12 @@ class CardsStore {
       const data: CardType[] = await response.json();
 
       runInAction(() => {
-        this.cards = data;
+        if (page === 1) {
+          this.cards = data;
+        } else {
+          this.cards.push(...data);
+        }
+
         this.loading = false;
         this.error = null;
         this.count = response.headers.get('Pagination-Count');

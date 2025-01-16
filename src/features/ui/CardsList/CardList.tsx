@@ -17,14 +17,12 @@ export const CardsList = observer(() => {
   const [editCardId, setEditCardId] = useState<string>();
   const [pageValue, setPageValue] = useState(FIRST_PAGE_NUMBER);
   const [isFetching, setIsFetching] = useState(true);
-  const [cardList, setCardList] = useState<CardType[]>([]);
 
   useEffect(() => {
     if (isFetching) {
       cardsStore
         .fetchCards(ITEMS_ON_PAGE, pageValue)
         .then(() => {
-          setCardList((prev) => [...prev, ...cardsStore.cards]);
           setPageValue((prevPageValue) => prevPageValue + 1);
         })
         .finally(() => setIsFetching(false));
@@ -51,25 +49,10 @@ export const CardsList = observer(() => {
 
   const handleDelete = (id: string) => {
     cardsStore.deleteCard(id);
-    setCardList((prev) => prev.filter((card) => card.id !== id));
   };
 
   const handleEdit = (id: string, updatedInfo: Partial<CardType>['breeds']) => {
     cardsStore.editCard(id, updatedInfo);
-
-    setCardList((prev) => {
-      const index = prev.findIndex((card) => card.id === id);
-
-      if (index !== -1) {
-        const updatedCard = {
-          ...prev[index],
-          breeds: { ...prev[index].breeds, ...updatedInfo },
-        };
-
-        return [...prev.slice(0, index), updatedCard, ...prev.slice(index + 1)];
-      }
-      return prev;
-    });
   };
 
   const handleClickOpen = (id: string) => {
@@ -81,12 +64,12 @@ export const CardsList = observer(() => {
     setIsModalOpen(false);
   };
 
-  if (cardsStore.loading && !cardList.length)
+  if (cardsStore.loading && !cardsStore.cards.length)
     return <div className={css.loader} />;
 
   if (cardsStore.error) return <div>Something went wrong</div>;
 
-  const content = cardList.map((item) => (
+  const content = cardsStore.cards.map((item) => (
     <div className={css.cardWrapper} key={item.id + uuidv4()}>
       <CardsItem
         card={item}
@@ -103,7 +86,7 @@ export const CardsList = observer(() => {
 
       <EditModal
         isOpen={isModalOpen}
-        card={cardList.find((card) => card.id === editCardId)}
+        card={cardsStore.cards.find((card) => card.id === editCardId)}
         onClose={handleClose}
         onEdit={handleEdit}
       />
