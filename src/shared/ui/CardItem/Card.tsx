@@ -51,7 +51,7 @@ export const CardsItem = ({ card, onDelete, onOpen }: Props) => {
           alt={card.breeds[0].name}
           className={css.image}
         />
-        <CardContent sx={{ height: 'fitContent' }}>
+        <CardContent sx={{ height: 'fitContent', minHeight: '150px' }}>
           <Typography gutterBottom variant="h5" component="div">
             {card.breeds[0].name}
           </Typography>
