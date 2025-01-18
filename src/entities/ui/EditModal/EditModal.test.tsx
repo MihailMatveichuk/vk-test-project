@@ -7,8 +7,8 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { EditModal } from './EditModal';
 import { CardType } from '@/shared/models';
+import { EditModal } from './EditModal';
 
 const mockCard: CardType = {
   id: '1',

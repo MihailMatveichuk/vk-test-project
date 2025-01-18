@@ -1,6 +1,6 @@
-import { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
-import { CardsList } from '../features/ui/CardsList';
-import { Layout } from '../layout/Layout';
+import { ErrorBoundary } from '@/app/ErrorBoundary/ErrorBoundary';
+import { CardsList } from '@/features/ui/CardsList';
+import { Layout } from '@/app/layout/Layout';
 
 function App() {
   return (

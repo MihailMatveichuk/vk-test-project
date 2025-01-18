@@ -1,7 +1,9 @@
 import { render, waitFor, screen } from '@testing-library/react';
-import { CardsList } from './CardList';
+
 import cardsStore from '@/store/cardsStore';
 import { ErrorBoundary } from '@/app/ErrorBoundary/ErrorBoundary';
+import { CardsList } from './CardList';
+
 import css from './CardsList.module.css';
 
 jest.mock('@/store/cardsStore');

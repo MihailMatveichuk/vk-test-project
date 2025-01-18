@@ -1,7 +1,8 @@
 import { render, fireEvent } from '@testing-library/react';
-import { CardsItem } from './Card';
+
 import { CardType } from '@/shared/models';
 import { truncateText } from '@/lib';
+import { CardsItem } from './Card';
 
 const mockCard: CardType = {
   id: '1',
