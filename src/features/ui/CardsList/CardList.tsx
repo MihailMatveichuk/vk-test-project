@@ -80,13 +80,15 @@ export const CardsList = observer(() => {
     </div>
   ));
 
+  const editedCard = cardsStore.cards.find((card) => card.id === editCardId);
+
   return (
     <div className={css.wrapper}>
       <div className={css.cardsWrapper}>{content}</div>
 
       <EditModal
         isOpen={isModalOpen}
-        card={cardsStore.cards.find((card) => card.id === editCardId)}
+        card={editedCard}
         onClose={handleClose}
         onEdit={handleEdit}
       />

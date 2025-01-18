@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Fragment } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -18,7 +18,7 @@ type Props = {
 
 export function EditModal({ isOpen, onClose, onEdit, card }: Props) {
   return (
-    <React.Fragment>
+    <Fragment>
       <Dialog
         open={isOpen}
         onClose={onClose}
@@ -82,6 +82,6 @@ export function EditModal({ isOpen, onClose, onEdit, card }: Props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </Fragment>
   );
 }

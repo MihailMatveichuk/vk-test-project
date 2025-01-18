@@ -21,11 +21,13 @@ type Props = {
 };
 
 const DEFAULT_TRUNCATE_VALUE = 120;
+const MAX_NAME_LENGTH = 15;
 
 export const CardsItem = ({ card, onDelete, onOpen }: Props) => {
   const [truncateValue, setTruncateValue] = useState(DEFAULT_TRUNCATE_VALUE);
   const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
 
+  const cardName = card.breeds[0].name;
   const cardDescription = card.breeds[0].description;
 
   const handleIsLearnMoreOpen = () => {
@@ -51,9 +53,14 @@ export const CardsItem = ({ card, onDelete, onOpen }: Props) => {
           alt={card.breeds[0].name}
           className={css.image}
         />
-        <CardContent sx={{ height: 'fitContent', minHeight: '150px' }}>
+        <CardContent
+          sx={{
+            height: 'fitContent',
+            minHeight: '150px',
+          }}
+        >
           <Typography gutterBottom variant="h5" component="div">
-            {card.breeds[0].name}
+            {truncateText(cardName, MAX_NAME_LENGTH)}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {truncateText(cardDescription, truncateValue)}
