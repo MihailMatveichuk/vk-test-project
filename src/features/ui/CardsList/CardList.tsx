@@ -90,6 +90,7 @@ export const CardsList = observer(() => {
         onClose={handleClose}
         onEdit={handleEdit}
       />
+      {cardsStore.loading && <p>Loading...</p>}
     </div>
   );
 });

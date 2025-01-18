@@ -20,7 +20,7 @@ type Props = {
   onOpen: (id: string) => void;
 };
 
-const DEFAULT_TRUNCATE_VALUE = 150;
+const DEFAULT_TRUNCATE_VALUE = 120;
 
 export const CardsItem = ({ card, onDelete, onOpen }: Props) => {
   const [truncateValue, setTruncateValue] = useState(DEFAULT_TRUNCATE_VALUE);
@@ -51,7 +51,7 @@ export const CardsItem = ({ card, onDelete, onOpen }: Props) => {
           alt={card.breeds[0].name}
           className={css.image}
         />
-        <CardContent sx={{ height: !isLearnMoreOpen ? '180px' : 'fitContent' }}>
+        <CardContent sx={{ height: 'fitContent' }}>
           <Typography gutterBottom variant="h5" component="div">
             {card.breeds[0].name}
           </Typography>
